@@ -12,6 +12,9 @@ const int PEDDLE_LEFT_X = 0;
 const int PEDDLE_RIGHT_X = SCREEN_WIDTH - PEDDLE_WIDTH;
 const int PEDDLE_INIT_Y = SCREEN_HEIGHT / 4;
 
+SDL_Rect peddleLeft = {PEDDLE_LEFT_X, PEDDLE_INIT_Y, PEDDLE_WIDTH, PEDDLE_HEIGHT};
+SDL_Rect peddleRight= {PEDDLE_RIGHT_X, PEDDLE_INIT_Y, PEDDLE_WIDTH, PEDDLE_HEIGHT};
+
 SDL_Window* window = nullptr;
 SDL_Renderer* gRenderer = nullptr;
 
@@ -53,6 +56,22 @@ bool init()
     return success;
 }
 
+void render()
+{
+    SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
+    SDL_RenderClear(gRenderer);
+
+    // Peddle peddle_left(0, SCREEN_HEIGHT / 4, 30, SCREEN_HEIGHT / 2);
+
+    SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(gRenderer, &peddleLeft);
+
+    SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(gRenderer, &peddleRight);
+
+    SDL_RenderPresent(gRenderer);
+}
+
 int main()
 {
     if (!init())
@@ -72,21 +91,27 @@ int main()
                 {
                     quit = true;
                 }
+                else if (e.type == SDL_KEYDOWN)
+                {
+                    switch (e.key.keysym.sym)
+                    {
+                        case SDLK_UP:
+                            peddleRight.y -= 4;
+                            break;
+                        case SDLK_DOWN:
+                            peddleRight.y += 4;
+                        case SDLK_w:
+                            peddleLeft.y -= 4;
+                            break;
+                        case SDLK_s:
+                            peddleLeft.y += 4;
+                            break;
+                    }
+                }
 
-                SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
-                SDL_RenderClear(gRenderer);
-
-                // Peddle peddle_left(0, SCREEN_HEIGHT / 4, 30, SCREEN_HEIGHT / 2);
-                SDL_Rect peddleLeft = {PEDDLE_LEFT_X, PEDDLE_INIT_Y, PEDDLE_WIDTH, PEDDLE_HEIGHT};
-                SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
-                SDL_RenderFillRect(gRenderer, &peddleLeft);
-
-                SDL_Rect peddleRight= {PEDDLE_RIGHT_X, PEDDLE_INIT_Y, PEDDLE_WIDTH, PEDDLE_HEIGHT};
-                SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
-                SDL_RenderFillRect(gRenderer, &peddleRight);
-
-                SDL_RenderPresent(gRenderer);
             }
+
+            render();
         }
     }
 
