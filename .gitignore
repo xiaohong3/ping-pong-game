@@ -4,3 +4,6 @@ obj/
 test_codeblocks.cbp
 test_codeblocks.depend
 test_codeblocks.layout
+
+# Dependency for xcode
+ping-pong-game.xcodeproj

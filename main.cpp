@@ -1,6 +1,5 @@
 #include <iostream>
 #include <SDL2/SDL.h>
-#include "Peddle.h"
 
 using namespace std;
 
