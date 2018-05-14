@@ -96,14 +96,31 @@ int main()
                     {
                         case SDLK_UP:
                             peddleRight.y -= 4;
+                            if (peddleRight.y < 0)
+                            {
+                                peddleRight.y = 0;
+                            }
                             break;
                         case SDLK_DOWN:
                             peddleRight.y += 4;
+                            if (peddleRight.y > SCREEN_HEIGHT - PEDDLE_HEIGHT)
+                            {
+                                peddleRight.y = SCREEN_HEIGHT - PEDDLE_HEIGHT;
+                            }
+                            break;
                         case SDLK_w:
                             peddleLeft.y -= 4;
+                            if (peddleLeft.y < 0)
+                            {
+                                peddleLeft.y = 0;
+                            }
                             break;
                         case SDLK_s:
                             peddleLeft.y += 4;
+                            if (peddleLeft.y > SCREEN_HEIGHT - PEDDLE_HEIGHT)
+                            {
+                                peddleLeft.y = SCREEN_HEIGHT - PEDDLE_HEIGHT;
+                            }
                             break;
                     }
                 }
